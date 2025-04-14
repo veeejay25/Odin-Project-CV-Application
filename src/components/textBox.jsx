@@ -1,9 +1,10 @@
 import React from "react";
 
-function TextInput({ value, onChange, placeholder, className }) {
+function TextInput({ name, value, onChange, placeholder, className }) {
   return (
     <input
       type="text"
+      name={name}  // ← This is the crucial fix
       value={value}
       onChange={onChange}
       placeholder={placeholder}
