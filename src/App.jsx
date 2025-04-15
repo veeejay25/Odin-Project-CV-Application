@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "./components/button";
 import TextInput from "./components/textBox";
 import "./App.css";
-import CVPreview  from "./components/cvPreview"; // Adjust the path if needed
+import CVPreview from "./components/cvPreview"; // Adjust the path if needed
 
 function App() {
   const [activeSection, setActiveSection] = useState("personalDetails");
@@ -17,8 +17,8 @@ function App() {
   const [profile, setProfile] = useState("");
   const [experience, setExperience] = useState([
     {
-      title: "Projects",
-      dateRange: "2021 - 2024",
+      title: "",
+      dateRange: "",
       bullets: [""],
     },
   ]);
@@ -191,6 +191,8 @@ function App() {
               value={profile}
               onChange={handleProfileChange}
               placeholder="Write a short personal statement..."
+              style={{ width: "525px", height: "150px", padding: "6px" }}
+              multiline
             />
           </div>
         )}
@@ -206,11 +208,13 @@ function App() {
                   border: "1px solid #ccc",
                   padding: "10px",
                   borderRadius: "8px",
+                  width: "543px",
+                  backgroundColor: "#e8e8e8",
                 }}
               >
                 <input
                   type="text"
-                  placeholder="Title (e.g. Projects)"
+                  placeholder="Project Title"
                   value={exp.title}
                   onChange={(e) =>
                     handleExperienceChange(i, "title", e.target.value)
@@ -218,7 +222,7 @@ function App() {
                 />
                 <input
                   type="text"
-                  placeholder="Date Range (e.g. 2021 - 2024)"
+                  placeholder="Start Date - End Date"
                   value={exp.dateRange}
                   onChange={(e) =>
                     handleExperienceChange(i, "dateRange", e.target.value)
@@ -246,23 +250,42 @@ function App() {
                       />
                       <button
                         onClick={() => removeBullet(i, j)}
-                        style={{ marginLeft: "8px", padding: "4px 8px" }}
+                        style={{
+                          marginLeft: "8px",
+                          marginRight: "53px",
+                          marginTop: "-8px",
+                          padding: "4px 8px",
+                        }}
                       >
                         Remove
                       </button>
                     </li>
                   ))}
                 </ul>
-                <button onClick={() => addBullet(i)}>Add Bullet Point</button>
+                <button
+                  onClick={() => addBullet(i)}
+                  style={{ padding: "4px 8px" }}
+                >
+                  Add Bullet Point
+                </button>
                 <button
                   onClick={() => removeExperienceEntry(i)}
-                  style={{ marginLeft: "10px", color: "red" }}
+                  style={{
+                    marginLeft: "10px",
+                    color: "red",
+                    padding: "4px 8px",
+                  }}
                 >
                   Delete Experience
                 </button>
               </div>
             ))}
-            <button onClick={addExperienceEntry}>Add Another Experience</button>
+            <button
+              onClick={addExperienceEntry}
+              style={{ marginLeft: "10px", padding: "4px 8px" }}
+            >
+              Add Another Experience
+            </button>
           </div>
         )}
 
@@ -277,6 +300,8 @@ function App() {
                   border: "1px solid #ccc",
                   padding: "10px",
                   borderRadius: "8px",
+                  width: "543px",
+                  backgroundColor: "#e8e8e8",
                 }}
               >
                 <input
@@ -289,7 +314,7 @@ function App() {
                 />
                 <input
                   type="text"
-                  placeholder="Date Range (e.g. 2021 - 2024)"
+                  placeholder="Start Date - End Date"
                   value={edu.dateRange}
                   onChange={(e) =>
                     handleEducationChange(i, "dateRange", e.target.value)
@@ -297,21 +322,27 @@ function App() {
                 />
                 <input
                   type="text"
-                  placeholder="Degree / Program (e.g. BSc Computing)"
+                  placeholder="Degree / Program"
                   value={edu.degree}
                   onChange={(e) =>
                     handleEducationChange(i, "degree", e.target.value)
                   }
                 />
+                <br />
                 <button
                   onClick={() => removeEducationEntry(i)}
-                  style={{ marginTop: "5px", color: "red" }}
+                  style={{ marginTop: "5px", color: "red", padding: "4px 8px" }}
                 >
                   Remove
                 </button>
               </div>
             ))}
-            <button onClick={addEducationEntry}>Add Another Education</button>
+            <button
+              onClick={addEducationEntry}
+              style={{ marginLeft: "10px", padding: "4px 8px" }}
+            >
+              Add Another Education
+            </button>
           </div>
         )}
 
@@ -373,7 +404,7 @@ function App() {
         )}
       </div>
       <div className="preview-section">
-        <h2>CV Preview</h2>
+        <h2 id="PreviewText">CV Preview</h2>
         <CVPreview
           personalDetails={personalDetails}
           profile={profile}

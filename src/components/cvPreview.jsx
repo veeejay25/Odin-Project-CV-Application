@@ -24,7 +24,13 @@ const CVPreview = ({
         <h2>PROFILE</h2>
         <p>
           {profile ||
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum."}
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do " +
+              "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut " +
+              "enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+              "nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
+              "reprehenderit in voluptate velit esse cillum dolore eu fugiat " +
+              "nulla pariatur. Excepteur sint occaecat cupidatat non proident, " +
+              "sunt in culpa qui officia deserunt mollit anim id est laborum."}
         </p>
       </div>
 
@@ -36,7 +42,7 @@ const CVPreview = ({
             <div key={i} className="experience-entry">
               <div className="experience-header">
                 <strong>{exp.title || "Position/Project"}</strong>
-                <span>{exp.dateRange || "2021 - 2024"}</span>
+                <span>{exp.dateRange || "Start Date - End Date"}</span>
               </div>
               <ul>
                 {exp.bullets.map((bullet, j) => (
@@ -60,7 +66,7 @@ const CVPreview = ({
               <div key={i} className="education-entry">
                 <strong>{edu.school || "School/University"}</strong>
                 <div>
-                  <span>{edu.dateRange || "2021 - 2024"}</span>
+                  <span>{edu.dateRange || "Start Date - End Date"}</span>
                   <br />
                   <span>{edu.degree || "Degree/Program"}</span>
                 </div>
@@ -79,58 +85,76 @@ const CVPreview = ({
               ))}
             </ul>
           ) : (
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Skills</p>
           )}
         </div>
       </div>
 
       <style jsx>{`
+        :root {
+          --font-family: "Arial", sans-serif;
+          --primary-color: #333;
+          --secondary-color: #555;
+          --border-color: black;
+          --header-font-size: 24px;
+          --section-font-size: 16px;
+          --line-height: 1.5;
+          --margin-bottom: 10px;
+        }
+
         .resume-preview {
-          font-family: "Arial", sans-serif;
-          max-width: 800px;
+          font-family: var(--font-family);
+          width: 210mm; /* A4 width */
+          height: 297mm; /* A4 height */
           margin: 0 auto;
-          padding: 20px;
-          color: #333;
-          line-height: 1.5;
+          padding: 20mm; /* Add some padding */
+          color: var(--primary-color);
+          line-height: var(--line-height);
+          box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+          overflow: hidden; /* Hide overflow */
+          background-color: white; /* Ensure background is white */
         }
 
         .resume-header {
           display: flex;
           flex-direction: column;
           align-items: center;
-          border-bottom: 1px solid black;
+          border-bottom: 1px solid var(--border-color);
         }
 
         .resume-header h1 {
           text-transform: uppercase;
           letter-spacing: 2px;
           margin: 0;
-          font-size: 24px;
+          font-size: var(--header-font-size);
         }
 
         .contact-info {
           font-size: 14px;
-          margin-bottom: 10px;
+          margin-bottom: var(--margin-bottom);
           text-align: center;
           font-style: italic;
         }
 
-        .resume-section p {
-          margin: 0 0 10px 0;
+        .resume-section P {
+          margin: 0;
+          margin-bottom: 10px;
         }
 
         .resume-section {
-          border-bottom: 1px solid black;
+          border-bottom: 1px solid var(--border-color);
+          margin-bottom: var(--margin-bottom);
+          margin: 0;
         }
 
         .resume-section h2 {
           text-transform: uppercase;
-          font-size: 16px;
+          font-size: var(--section-font-size);
           margin: 0;
         }
 
         .experience-entry {
-          margin-bottom: 15px;
+          margin-bottom: 10px;
         }
 
         .experience-header {
@@ -145,13 +169,11 @@ const CVPreview = ({
         }
 
         .skills-list {
-          display: flex;
-          flex-wrap: wrap;
-          list-style-type: none;
+          list-style-type: disc;
+          padding-left: 20px;
         }
 
         .skills-list li {
-          margin-right: 15px;
           margin-bottom: 5px;
         }
 
@@ -173,10 +195,11 @@ const CVPreview = ({
         .skills-column,
         .education-column {
           flex: 1;
+          min-width: 45%; /* Ensure columns have a minimum width */
         }
 
         .skills-column {
-          margin-right: 10px;
+          margin-left: 10px; /* Add margin to separate from education column */
         }
       `}</style>
     </div>
