@@ -116,33 +116,49 @@ function App() {
         <Button
           text="Personal Details"
           onClick={() => setActiveSection("personalDetails")}
-          className="section-button"
+          className={`section-button ${
+            activeSection === "personalDetails" ? "active" : ""
+          }`}
         />
         <Button
           text="Profile"
           onClick={() => setActiveSection("profile")}
-          className="section-button"
+          className={`section-button ${
+            activeSection === "profile" ? "active" : ""
+          }`}
         />
         <Button
           text="Experience"
           onClick={() => setActiveSection("experience")}
-          className="section-button"
+          className={`section-button ${
+            activeSection === "experience" ? "active" : ""
+          }`}
         />
         <Button
           text="Education"
           onClick={() => setActiveSection("education")}
-          className="section-button"
+          className={`section-button ${
+            activeSection === "education" ? "active" : ""
+          }`}
         />
         <Button
           text="Skills"
           onClick={() => setActiveSection("skills")}
-          className="section-button"
+          className={`section-button ${
+            activeSection === "skills" ? "active" : ""
+          }`}
         />
 
-        {/* Add more buttons for other sections as needed */}
-
         {activeSection === "personalDetails" && (
-          <div>
+          <div
+            style={{
+              backgroundColor: "#f5f4f1",
+              borderRadius: "8px",
+              padding: "4px 8px",
+              marginTop: "8px",
+              width: "780px",
+            }}
+          >
             <h3>Personal Details</h3>
             <TextInput
               name="name"
@@ -184,21 +200,43 @@ function App() {
         )}
 
         {activeSection === "profile" && (
-          <div>
+          <div
+            style={{
+              backgroundColor: "#f5f4f1",
+              borderRadius: "8px",
+              padding: "4px 8px",
+              marginTop: "8px",
+              width: "780px",
+            }}
+          >
             <h3>Profile Summary</h3>
             <TextInput
               name="profile"
               value={profile}
               onChange={handleProfileChange}
               placeholder="Write a short personal statement..."
-              style={{ width: "525px", height: "150px", padding: "6px" }}
+              style={{
+                width: "98%",
+                height: "150px",
+                padding: "6px",
+                backgroundColor: "#fffefb",
+                borderRadius: "8px",
+              }}
               multiline
             />
           </div>
         )}
 
         {activeSection === "experience" && (
-          <div>
+          <div
+            style={{
+              backgroundColor: "#f5f4f1",
+              borderRadius: "8px",
+              padding: "4px 8px",
+              marginTop: "8px",
+              width: "780px",
+            }}
+          >
             <h3>Experience</h3>
             {experience.map((exp, i) => (
               <div
@@ -208,7 +246,7 @@ function App() {
                   border: "1px solid #ccc",
                   padding: "10px",
                   borderRadius: "8px",
-                  width: "543px",
+                  width: "97%",
                   backgroundColor: "#e8e8e8",
                 }}
               >
@@ -239,22 +277,27 @@ function App() {
                         marginBottom: "5px",
                       }}
                     >
-                      <input
-                        type="text"
+                      <textarea
                         placeholder={`Bullet point ${j + 1}`}
                         value={bullet}
                         onChange={(e) =>
                           handleBulletChange(i, j, e.target.value)
                         }
-                        style={{ flex: 1 }}
+                        style={{ flex: 1, height: "40px", borderRadius: "8px", border: "none", marginBottom: "8px" }}
                       />
                       <button
                         onClick={() => removeBullet(i, j)}
                         style={{
+                          borderRadius: "5px",
+                          border: "none",
+                          backgroundColor: "#b6ccd8",
+                          color: "#3b3c3d",
                           marginLeft: "8px",
                           marginRight: "53px",
                           marginTop: "-8px",
                           padding: "4px 8px",
+                          fontFamily:
+                            "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
                         }}
                       >
                         Remove
@@ -264,7 +307,11 @@ function App() {
                 </ul>
                 <button
                   onClick={() => addBullet(i)}
-                  style={{ padding: "4px 8px" }}
+                  style={{
+                    padding: "4px 8px",
+                    fontFamily:
+                      "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
+                  }}
                 >
                   Add Bullet Point
                 </button>
@@ -274,6 +321,8 @@ function App() {
                     marginLeft: "10px",
                     color: "red",
                     padding: "4px 8px",
+                    fontFamily:
+                      "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
                   }}
                 >
                   Delete Experience
@@ -282,7 +331,12 @@ function App() {
             ))}
             <button
               onClick={addExperienceEntry}
-              style={{ marginLeft: "10px", padding: "4px 8px" }}
+              style={{
+                marginLeft: "10px",
+                padding: "4px 8px",
+                fontFamily:
+                  "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
+              }}
             >
               Add Another Experience
             </button>
@@ -331,7 +385,13 @@ function App() {
                 <br />
                 <button
                   onClick={() => removeEducationEntry(i)}
-                  style={{ marginTop: "5px", color: "red", padding: "4px 8px" }}
+                  style={{
+                    marginTop: "5px",
+                    color: "red",
+                    padding: "4px 8px",
+                    fontFamily:
+                      "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
+                  }}
                 >
                   Remove
                 </button>
@@ -339,7 +399,12 @@ function App() {
             ))}
             <button
               onClick={addEducationEntry}
-              style={{ marginLeft: "10px", padding: "4px 8px" }}
+              style={{
+                marginLeft: "10px",
+                padding: "4px 8px",
+                fontFamily:
+                  "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
+              }}
             >
               Add Another Education
             </button>
@@ -375,11 +440,14 @@ function App() {
                     onClick={() => removeSkill(i)}
                     style={{
                       marginLeft: "8px",
+                      marginTop: "-8px",
                       padding: "6px",
                       color: "white",
                       backgroundColor: "red",
                       border: "none",
                       borderRadius: "4px",
+                      fontFamily:
+                        "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
                     }}
                   >
                     Remove
@@ -396,6 +464,8 @@ function App() {
                 border: "none",
                 backgroundColor: "#007bff",
                 color: "white",
+                fontFamily:
+                  "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
               }}
             >
               Add Skill

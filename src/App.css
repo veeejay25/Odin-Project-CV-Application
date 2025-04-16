@@ -2,20 +2,24 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background-color: #F2F2F2;
-  color: #333333;
+  background-color: #fffefb;
+  color: #1d1c1c;
+  border-radius: 8px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 .input-section {
   flex: 1;
   padding: 10px;
+  border-right: solid 1px #cccbc8;
 }
 
 .preview-section {
   flex: 2;
 }
 
-.preview-section #PreviewText{
+.preview-section #PreviewText {
   text-align: center;
 }
 
@@ -24,26 +28,32 @@
   padding: 10px 15px;
   margin: 5px;
   font-size: 16px;
-  background-color: #d4eaf7;
-  color: #333333;
+  background-color: #f5f4f1;
+  color: #1d1c1c;
   border: none;
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-.section-button:hover {
-  background-color: #f5f4f1;
+.section-button.active {
+  background-color: #d4eaf7;
+  color: #1d1c1c;
+  font-weight: bold;
 }
 
 input {
   margin-bottom: 8px;
   padding: 6px;
-  width: 525px;
-  background-color: #e8e8e8;
+  width: 98%;
+  background-color: #fffefb;
   border: 1px;
   border-radius: 8px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 ul {
