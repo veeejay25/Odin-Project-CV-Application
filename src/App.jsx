@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import Button from "./components/button";
 import TextInput from "./components/textBox";
 import "./App.css";
-import CVPreview from "./components/cvPreview"; // Adjust the path if needed
+import CVPreview from "./components/cvPreview";
+import SectionContainer from "./components/SectionContainer";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 function App() {
   const [activeSection, setActiveSection] = useState("personalDetails");
@@ -109,6 +112,19 @@ function App() {
     setSkills(updated);
   };
 
+  const downloadPDF = () => {
+    const input = document.querySelector(".resume-preview");
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("CVPreview.pdf");
+    });
+  };
+
   return (
     <div className="app-container">
       <div className="input-section">
@@ -150,15 +166,7 @@ function App() {
         />
 
         {activeSection === "personalDetails" && (
-          <div
-            style={{
-              backgroundColor: "#f5f4f1",
-              borderRadius: "8px",
-              padding: "4px 8px",
-              marginTop: "8px",
-              width: "780px",
-            }}
-          >
+          <SectionContainer>
             <h3>Personal Details</h3>
             <TextInput
               name="name"
@@ -196,19 +204,11 @@ function App() {
               onChange={handleInputChange}
               placeholder="Enter your phone Github"
             />
-          </div>
+          </SectionContainer>
         )}
 
         {activeSection === "profile" && (
-          <div
-            style={{
-              backgroundColor: "#f5f4f1",
-              borderRadius: "8px",
-              padding: "4px 8px",
-              marginTop: "8px",
-              width: "780px",
-            }}
-          >
+          <SectionContainer>
             <h3>Profile Summary</h3>
             <TextInput
               name="profile"
@@ -224,30 +224,21 @@ function App() {
               }}
               multiline
             />
-          </div>
+          </SectionContainer>
         )}
 
         {activeSection === "experience" && (
-          <div
-            style={{
-              backgroundColor: "#f5f4f1",
-              borderRadius: "8px",
-              padding: "4px 8px",
-              marginTop: "8px",
-              width: "780px",
-            }}
-          >
+          <SectionContainer>
             <h3>Experience</h3>
             {experience.map((exp, i) => (
               <div
                 key={i}
                 style={{
-                  marginBottom: "20px",
+                  marginBottom: "8px",
                   border: "1px solid #ccc",
                   padding: "10px",
                   borderRadius: "8px",
                   width: "97%",
-                  backgroundColor: "#e8e8e8",
                 }}
               >
                 <input
@@ -283,7 +274,13 @@ function App() {
                         onChange={(e) =>
                           handleBulletChange(i, j, e.target.value)
                         }
-                        style={{ flex: 1, height: "40px", borderRadius: "8px", border: "none", marginBottom: "8px" }}
+                        style={{
+                          flex: 1,
+                          height: "40px",
+                          borderRadius: "8px",
+                          border: "none",
+                          marginBottom: "8px",
+                        }}
                       />
                       <button
                         onClick={() => removeBullet(i, j)}
@@ -291,10 +288,8 @@ function App() {
                           borderRadius: "5px",
                           border: "none",
                           backgroundColor: "#b6ccd8",
-                          color: "#3b3c3d",
-                          marginLeft: "8px",
-                          marginRight: "53px",
-                          marginTop: "-8px",
+                          color: "#313d44",
+                          margin: "-8px 53px 0 8px",
                           padding: "4px 8px",
                           fontFamily:
                             "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
@@ -308,6 +303,10 @@ function App() {
                 <button
                   onClick={() => addBullet(i)}
                   style={{
+                    borderRadius: "5px",
+                    border: "none",
+                    backgroundColor: "#00668c",
+                    color: "#fffefb",
                     padding: "4px 8px",
                     fontFamily:
                       "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
@@ -318,8 +317,11 @@ function App() {
                 <button
                   onClick={() => removeExperienceEntry(i)}
                   style={{
+                    borderRadius: "5px",
+                    border: "none",
+                    backgroundColor: "#b6ccd8",
+                    color: "#313d44",
                     marginLeft: "10px",
-                    color: "red",
                     padding: "4px 8px",
                     fontFamily:
                       "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
@@ -332,30 +334,34 @@ function App() {
             <button
               onClick={addExperienceEntry}
               style={{
-                marginLeft: "10px",
-                padding: "4px 8px",
+                borderRadius: "5px",
+                border: "none",
+                backgroundColor: "#d4eaf7",
+                color: "#1d1c1c",
+                margin: "0 53px 4px 8px",
+                padding: "8px 12px",
+                fontWeight: "bold",
                 fontFamily:
                   "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
               }}
             >
               Add Another Experience
             </button>
-          </div>
+          </SectionContainer>
         )}
 
         {activeSection === "education" && (
-          <div>
+          <SectionContainer>
             <h3>Education</h3>
             {education.map((edu, i) => (
               <div
                 key={i}
                 style={{
-                  marginBottom: "20px",
+                  marginBottom: "8px",
                   border: "1px solid #ccc",
                   padding: "10px",
                   borderRadius: "8px",
-                  width: "543px",
-                  backgroundColor: "#e8e8e8",
+                  width: "97%",
                 }}
               >
                 <input
@@ -386,8 +392,10 @@ function App() {
                 <button
                   onClick={() => removeEducationEntry(i)}
                   style={{
-                    marginTop: "5px",
-                    color: "red",
+                    borderRadius: "5px",
+                    border: "none",
+                    backgroundColor: "#b6ccd8",
+                    color: "#313d44",
                     padding: "4px 8px",
                     fontFamily:
                       "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
@@ -400,28 +408,35 @@ function App() {
             <button
               onClick={addEducationEntry}
               style={{
-                marginLeft: "10px",
-                padding: "4px 8px",
+                borderRadius: "5px",
+                border: "none",
+                backgroundColor: "#d4eaf7",
+                color: "#1d1c1c",
+                margin: "0 53px 4px 8px",
+                padding: "8px 12px",
+                fontWeight: "bold",
                 fontFamily:
                   "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
               }}
             >
               Add Another Education
             </button>
-          </div>
+          </SectionContainer>
         )}
 
         {activeSection === "skills" && (
-          <div>
+          <SectionContainer>
             <h3>Skills</h3>
-            <ul>
+            <ul style={{ width: "98%" }}>
               {skills.map((skill, i) => (
                 <li
                   key={i}
                   style={{
-                    display: "flex",
-                    alignItems: "center",
                     marginBottom: "8px",
+                    border: "1px solid #ccc",
+                    padding: "10px",
+                    borderRadius: "8px",
+                    width: "94%",
                   }}
                 >
                   <input
@@ -430,22 +445,22 @@ function App() {
                     value={skill}
                     onChange={(e) => handleSkillChange(i, e.target.value)}
                     style={{
-                      flex: 1,
-                      padding: "6px",
-                      borderRadius: "4px",
+                      marginBottom: "8px",
                       border: "1px solid #ccc",
+                      borderRadius: "8px",
+                      border: "none",
+                      width: "98%",
                     }}
                   />
                   <button
                     onClick={() => removeSkill(i)}
                     style={{
-                      marginLeft: "8px",
-                      marginTop: "-8px",
-                      padding: "6px",
-                      color: "white",
-                      backgroundColor: "red",
+                      borderRadius: "5px",
                       border: "none",
-                      borderRadius: "4px",
+                      backgroundColor: "#b6ccd8",
+                      color: "#313d44",
+                      margin: "0 53px 0 0",
+                      padding: "4px 8px",
                       fontFamily:
                         "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
                     }}
@@ -458,20 +473,37 @@ function App() {
             <button
               onClick={addSkill}
               style={{
-                marginTop: "10px",
-                padding: "8px 12px",
-                borderRadius: "4px",
+                borderRadius: "5px",
                 border: "none",
-                backgroundColor: "#007bff",
-                color: "white",
+                backgroundColor: "#d4eaf7",
+                color: "#1d1c1c",
+                margin: "0 53px 4px 8px",
+                padding: "8px 12px",
+                fontWeight: "bold",
                 fontFamily:
                   "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
               }}
             >
               Add Skill
             </button>
-          </div>
+          </SectionContainer>
         )}
+        <button
+          onClick={downloadPDF}
+          style={{
+            borderRadius: "5px",
+            border: "none",
+            backgroundColor: "#d4eaf7",
+            color: "#1d1c1c",
+            margin: "10px 0",
+            padding: "8px 12px",
+            fontWeight: "bold",
+            fontFamily:
+              "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
+          }}
+        >
+          Download as PDF
+        </button>
       </div>
       <div className="preview-section">
         <h2 id="PreviewText">CV Preview</h2>
